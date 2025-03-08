@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Kiểm tra ngữ pháp";
+}
+
+<h2>Kiểm tra ngữ pháp</h2>
+
+<form asp-action="CheckGrammar" method="post">
+    <div class="form-group">
+        <label for="inputText">Nhập văn bản của bạn:</label>
+        <textarea id="inputText" name="inputText" class="form-control" rows="5" placeholder="Viết văn bản cần kiểm tra...">@ViewBag.InputText</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">Check</button>
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger mt-3">
+        @ViewBag.Error
+    </div>
+}
+
+@if (ViewBag.CorrectedText != null)
+{
+    <div class="mt-3">
+        <h4>Kết quả:</h4>
+        <p><strong>Văn bản gốc:</strong> @ViewBag.InputText</p>
+        <p><strong>Văn bản đã chỉnh sửa:</strong> @ViewBag.CorrectedText</p>
+    </div>
+}
