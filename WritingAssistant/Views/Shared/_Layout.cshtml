@@ -23,20 +23,32 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Grammar" asp-action="Vietnamese">Vietnamese</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Grammar" asp-action="Index">Kiểm tra ngữ pháp</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Grammar" asp-action="English">English</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
-                        <!-- ms-auto đẩy các mục về bên phải -->
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <form asp-controller="Account" asp-action="Logout" method="post">
-                                    <button type="submit" class="nav-link btn btn-link text-dark">Đăng xuất</button>
-                                </form>
+                            <li class="nav-item dropdown">
+                                
+                                <a class="nav-link text-dark dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Xin chào, @User.Identity.Name
+                                    <img src="/images/background.jpg" alt="Alternate Text" />
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li class="dropdown-item-text">
+                                        <strong>Email:</strong> @User.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form asp-controller="Account" asp-action="Logout" method="post">
+                                            <button type="submit" class="dropdown-item">Đăng xuất</button>
+                                        </form>
+                                    </li>
+                                </ul>
                             </li>
                         }
                         else
@@ -52,7 +64,6 @@
                 </div>
             </div>
         </nav>
-        
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -62,7 +73,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - WritingAssistant - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            © 2025 - WritingAssistant - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

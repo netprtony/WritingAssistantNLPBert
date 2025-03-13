@@ -22,6 +22,7 @@ namespace WritingAssistant.Controllers
         }
 
         [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -31,8 +32,10 @@ namespace WritingAssistant.Controllers
 
                 if (result.Succeeded)
                 {
+                    // Thêm email vào Claims
+                    await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Email, model.Email));
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Grammar");
                 }
                 foreach (var error in result.Errors)
                 {
@@ -55,7 +58,15 @@ namespace WritingAssistant.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    // Tải thông tin người dùng
+                    var user = await _userManager.FindByNameAsync(model.Username);
+                    // Đảm bảo email có trong Claims
+                    var emailClaim = await _userManager.GetClaimsAsync(user);
+                    if (!emailClaim.Any(c => c.Type == System.Security.Claims.ClaimTypes.Email))
+                    {
+                        await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim(System.Security.Claims.ClaimTypes.Email, user.Email));
+                    }
+                    return RedirectToAction("Index", "Grammar");
                 }
                 ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
             }

@@ -1,10 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Vietnamese";
+    ViewData["Title"] = "English";
 }
 
-<h2>Kiểm tra ngữ pháp</h2>
+<h2>Kiểm tra ngữ pháp tiếng Anh</h2>
 
-<form asp-action="CheckGrammar" method="post">
+<form asp-action="CheckGrammarEnglish" method="post">
     <div class="form-group">
         <label for="inputText">Nhập văn bản của bạn:</label>
         <textarea id="inputText" name="inputText" class="form-control" rows="5" placeholder="Viết văn bản cần kiểm tra...">@ViewBag.InputText</textarea>

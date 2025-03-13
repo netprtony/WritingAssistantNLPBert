@@ -20,3 +20,17 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.dropdown-menu-end {
+    right: 0;
+    left: auto;
+}
+
+.dropdown-item-text {
+    padding: 0.25rem 1rem;
+    color: #333;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
